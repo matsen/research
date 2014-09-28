@@ -58,6 +58,7 @@
 %\newcommand{\scite}[3]{\sidenote{#1 \etal\ #2, \url{#3}}}
 %\newcommand{\scite}[3]{(#1 \etal\ #2)\sidenote{\url{#3}}}
 \newcommand{\scite}[3]{\sidenote{\href{#3}{#1 \etal\ #2.}}}
+\newcommand{\scitetwo}[3]{\sidenote{\href{#3}{#1 #2.}}}
 
 \title{Research Statement}
 \author{Frederick Matsen, Fred Hutchinson Cancer Research Center} % \thanks{\url{http://matsen.fhcrc.org/}}}
@@ -69,21 +70,16 @@
 
 \begin{abstract}
 \noindent
-The research questions I enjoy most mix mathematical, statistical, and computational thinking to answer a question that either brings new insight to a biological problem, or provides novel methodology that is needed for a class of biological problems.
-Specifically, while at the Center my work has been in the intersection of evolutionary molecular sequence analysis and biomedicine.
-I have especially focused on methods that that integrate out uncertainty using a likelihood-based framework, or leverage hidden structure to the data.
+While at the Center my work has been to develop methods at the intersection of evolutionary molecular sequence analysis and biomedicine.
+I have especially focused on methods that that integrate out uncertainty using a likelihood-based framework and leverage hidden evolutionary structure of the data.
 \end{abstract}
 
 
-
-
-
-% I will begin by introducing a few of the concepts that are necessary to frame the work.
 \newthought{Model-based statistical inference provides a unified framework} to learn from plentiful, indirect, and often noisy biological data.\sidenote{%
 Here \textit{model-based} means that our ideas about how the system works are formalized into a probabilistic model.
 \textit{Statistical inference} means that uncertainty in measurement and intermediate steps is pushed all the way through to a final estimate of the uncertainty in the result.}
 Biological data also often comes with hidden evolutionary structure, such as that formed by a phylogenetic (i.e.\ evolutionary) tree that can be productively incorporated into an analysis.
-Biology furnishes a never-ending supply of challenges for model-based statistical inference with hidden evolutionary structure; I will narrate our application of these principles through our collaborative work.
+Biology furnishes a never-ending supply of inferential challenges in this area; I will narrate our application of these principles through our collaborative work.
 
 
 \section{Evolution of viruses and the immune system}
@@ -153,37 +149,46 @@ We are also exploring the degree to which conflicting signals in sequence alignm
 
 
 \section{Incorporating phylogenetic structure into ecological analysis}
+Evolution also endows ecological data with added structure.
+If a pair of communities harbors similar organisms between the pair, we might want to call those communities more similar than if a pair of communities harbors very different organisms.
+I have worked a considerable amount to bring this structure into statistical analysis of ecological data, motivated by research on the human microbiome happening at the Center.
+
+\begin{marginfigure}%
+  \includegraphics[width=2in]{pd.pdf}
+  \caption{\
+    Cartoon of unweighted phylogenetic diversity (left) and an abundance-weighted phylogenetic diversity measure (right), where taxa present in a sample are shown as circles and abundances are shown as the size of the circles.
+    }
+  \label{FIGpd}
+\end{marginfigure}
 
 
+This work can be classified into two categories: within-sample diversity analysis, and between-sample comparison.
+For within-sample diversity, the canonical formulation in a phylogenetic context is called \textit{phylogenetic diversity}, and is defined as the total amount of branch length (evolutionary distance) between all species in a sample.
+I have extended this work in two directions.
+First, I derived closed-form equations for the expectation and variance of phylogenetic diversity under sub-sampling, which can help quantify a ``confidence interval'' on diversity estimates\scitetwo{Nipperess and Matsen}{2013}{http://dx.doi.org/10.1111/2041-210X.12042}.
+Second, I found with my programmer Connor McCoy\scitetwo{McCoy and Matsen}{2013}{http://dx.doi.org/10.7717/peerj.157} that partially abundance phylogenetic diversity estimates were most informative in distinguishing between normal and dysbiotic states.
 
-\section{Software}
+Estimates of the differences between samples also benefit from incorporation of phylogenetic structure.
+In fact, microbial ecology researchers had already been making use of such phylogenetic structures in sample comparison for many years before Steve Evans and I noted that their comparison framework was a special case of a comparative framework developed in the late 18th century\scitetwo{Evans and Matsen}{2012}{http://dx.doi.org/10.1111/j.1467-9868.2011.01018.x}.
+We also were able integrate phylogenetic structure into ordination and clustering analysis directly\scitetwo{Matsen and Evans}{2013}{http://dx.doi.org/10.1371/journal.pone.0056859}, rather than first reduce samples to a sample-by-sample pairwise distance matrix.
+We are currently extending this work to incorporate both discrete and continuous aspects of the phylogenetic tree into a similar framework\sidenote{In preparation.}.
 
-pakage to run software with nested parameter choices \scite{McCoy}{2013}{http://dx.doi.org/10.1093/bioinformatics/bts696}
-
+\begin{marginfigure}%
+  \includegraphics[height=1.5in]{tree_dirtpiles.pdf}
+  \caption{\
+    ``Earth mover's'' interpretation of the ``weighted UniFrac'' measure popular in microbial ecology.
+    }
+  \label{FIGpd}
+\end{marginfigure}
 
 % \bibliography{research}
 % \bibliographystyle{unsrt}
 
 \end{document}
 
-\begin{marginfigure}%
-  \includegraphics[width=2in]{bcell-structure.png}
-  \caption{\
-    Overview of B cell development.
-    B cells first go through a combinatorial \emph{rearrangement} process resulting in a na\"ive B cell with single V, D, and J genes joined together by \emph{non-templated insertions}.
-    These na\"ive cells then go through a Darwinian \emph{affinity maturation} process of mutation and selection to improve the affinity of the B cell receptor displayed on the outside of the cell.
-    }
-  \label{FIGoverview}
-\end{marginfigure}
 
-\begin{figure}[h]
-  % \includegraphics[width=\linewidth]{selection.pdf}
-  \caption{\
-    An example per-site selection profile for a single individual; full figure and complete explanation available in our preprint.
-    Upper panel: "violin" density plot of selection pressure $\omega$ for sites at various positions of the immunoglobulin heavy chain locus; $\omega > 1$ indicates diversifying selection, whereas $\omega < 1$ indicates purifying selection.
-    Lower panel: counts of sites at various sites and their classification in terms of selection class.
-    }
-  \label{FIGselection}
-\end{figure}
+pakage to run software with nested parameter choices \scite{McCoy}{2013}{http://dx.doi.org/10.1093/bioinformatics/bts696}
 
+
+The research questions I enjoy most mix mathematical, statistical, and computational thinking to answer a question that either brings new insight to a biological problem, or provides novel methodology that is needed for a class of biological problems.
 
