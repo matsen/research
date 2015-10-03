@@ -70,7 +70,7 @@
 
 \begin{abstract}
 \noindent
-My work at the Center has been to develop and apply methods at the intersection of biomedicine and evolutionary molecular sequence analysis.
+My work at the Fred Hutch has been to develop and apply methods at the intersection of biomedicine and evolutionary molecular sequence analysis.
 I have especially focused on methods that that incorporate uncertainty using a likelihood-based framework and leverage hidden evolutionary structure of the data.
 \end{abstract}
 
@@ -97,10 +97,10 @@ There is considerable uncertainty in HIV phylogeny given a sample of molecular s
 For this reason we \emph{integrate out the uncertainty in this evolutionary reconstruction} in order to quantify the support for a superinfection hypothesis.\scite{Ronen}{2013}{http://dx.doi.org/10.1371/journal.ppat.1003593}
 
 We have taken such a likelihood-based approach to problems in viral evolution and diversity
-to investigate the evolutionary impact of pre-exposure HIV prophylaxis,\sidenote{Manuscript under review.}
+to investigate the evolutionary impact of pre-exposure HIV prophylaxis,\scite{Lehman}{2015}{http://dx.doi.org/10.1093/infdis/jiu677}
 to study simian foamy virus in its natural\scite{Lee}{2013}{http://dx.doi.org/10.1038/emi.2013.23}
 and human\scite{Engel}{2013}{http://dx.doi.org/10.1038/emi.2013.60} host,
-as well as to study the zoonotic transfer of Astrovirus.\sidenote{In preparation.}
+as well as to study the zoonotic transfer of Astrovirus.\sidenote{In press.}
 We have also investigated how the innate immune system impacts viral evolution, including the
 evolution of anti-restriction factor genes in viruses,\scite{Lim}{2012}{http://dx.doi.org/10.1016/j.chom.2012.01.004}
 how such dynamics shaped the ancestor of HIV-1,\scite{Etienne}{2013}{http://dx.doi.org/10.1016/j.chom.2013.06.002}
@@ -118,10 +118,10 @@ and how viral restriction by APOBEC3G may be the reason why simian foamy virus d
 We have recently become very interested in how the \textit{adaptive} immune system continually evolves within each individual in order to neutralize and destroy pathogens.
 Specifically, we have embarked on a program to bring modern model-based statistical inference to the within-host evolution of antibody-making B cells.
 Although the elements of B cell affinity maturation are the same as molecular evolution in other settings, being based on recombination, point mutation, and selection, there are a number of important differences.
-Postdoc Duncan Ralph and I are approaching VDJ rearrangement group inference using pair hidden Markov models, resulting in a Bayes factor that can be used for clustering.
-I am approaching the very strong mutation context dependence of mutation by doing model inference using composite likelihood strategies developed for interacting particle systems (joint with Peter Ralph, USC).
-We are pursuing new methods to do evolutionary selection inference in the setting of many reads of varying length\scite{McCoy}{2014}{http://arxiv.org/abs/1403.3066} and have applied them to the inference of selection happening on B cell receptor V gene (Figure~\ref{FIGbcell}).
-
+Postdoc Duncan Ralph and I have developed means to infer the un-mutated ancestors of B cell receptor sequences using detailed hidden Markov models (HMMs), resulting in significantly better results than previous methods \scite{Ralph}{2015}{http://arxiv.org/abs/1503.04224}.
+We then used this framework to develop the first likelihood-based approach to infer ``clonal families,'' which are collections of B cells that descend from the same common ancestor \sidnote{Submitted.}
+We have developed new methods to do evolutionary selection inference in the setting of many reads of varying length\scite{McCoy}{2015}{http://dx.doi.org/10.1098/rstb.2014.0244} and have applied them to the inference of selection happening on B cell receptor V gene (Figure~\ref{FIGbcell}).
+We are approaching the very strong context dependence of mutation by comparing per-site models to composite likelihood strategies in order to better reconstruct the history of mutation events leading to observed B cell receptor sequences (joint with Peter Ralph, USC).
 
 \section{Using geometry to better integrate over phylogenetic trees}
 \begin{marginfigure}%
@@ -138,7 +138,6 @@ Although there are certain guarantees concerning how phylogenetic reconstruction
 For example, there may be two ``peaks'' of good phylogenetic trees separated by a ``trough''; it may take an arbitrarily long time to cross between the peaks with high probability (Figure~\ref{FIGsprmix}).
 Such behavior will manifest itself in overconfidence in the tree represented by the first peak selected.
 
-\clearpage
 \begin{marginfigure}%
   \includegraphics[width=1.85in]{spr-definition.pdf}
   \caption{\
@@ -152,16 +151,16 @@ Postdoc Chris Whidden and I have explored these surfaces by equipping the collec
 In this tree modification, part of a tree is detached and then re-attached at another location.
 These SPR moves are the canonical example of the type of tree modification done in phylogenetic inference as described above.
 
-Our work enables analysis of the proximate causes of bad behavior of phylogenetic inference procedures by finding peaks and troughs in a graph representation of the set of phylogenetic trees.\scite{Whidden}{2014}{http://arxiv.org/abs/1405.2120}
-We are now learning the ultimate causes of difficulty of movement in the SPR graph by quantifying large-scale features of the graph, and in the process have characterized the symmetries of this graph induced by relabeling pairs of trees.
+Our work enables analysis of the proximate causes of bad behavior of phylogenetic inference procedures by finding peaks and troughs in a graph representation of the set of phylogenetic trees.\scite{Whidden}{2015}{http://dx.doi.org/10.1093/sysbio/syv006}
+We have also made some progress to understanding the ultimate causes of difficulty of movement in the SPR graph by quantifying large-scale features of the graph via the Ricci-Ollivier curvature \scite{Whidden}{2015}{http://arxiv.org/abs/1504.00304}.
+In the process we have characterized the symmetries of this graph induced by relabeling pairs of trees\scite{Matsen}{2015}{http://arxiv.org/abs/1507.04784}\scite{Billey}{2015}{http://arxiv.org/abs/1507.04976}.
 We are also exploring the degree to which conflicting signals in sequence alignments may contribute to such problems.
 
+This work has also made us quite curious about the shape of the phylogenetic likelihood function.
+Postdoc Vu Dinh and I performed a careful examination of the phylogenetic likelihood function as a function of a single branch length, finding that it is guaranteed to have a single maximum for simple models but may have an arbitrary number of maxima for more complex models and pathological data\scite{Dinh}{2015}{http://arxiv.org/abs/1507.03647}.
+We have built a corresponding surrogate function for one-dimensional phylogenetic likelihood functions that can be used to quickly sample from an approximate posterior\sidenote{In preparation.}.
 
 \section{Incorporating phylogenetic structure into ecological analysis}
-Evolution also endows ecological data with added structure, which we may want to incorporate into a comparative analysis.
-For example, if a pair of communities harbors similar organisms between them, we might want to call those communities more similar than if a pair of communities harbors very different organisms.
-I have worked a considerable amount to bring such structure into statistical analysis of ecological data, motivated by human microbiome research happening at the Center.
-
 \begin{marginfigure}%
   \includegraphics[width=2in]{pd.pdf}
   \caption{\
@@ -170,6 +169,9 @@ I have worked a considerable amount to bring such structure into statistical ana
   \label{FIGpd}
 \end{marginfigure}
 
+Evolution also endows ecological data with added structure, which we may want to incorporate into a comparative analysis.
+For example, if a pair of communities harbors similar organisms between them, we might want to call those communities more similar than if a pair of communities harbors very different organisms.
+I have worked a considerable amount to bring such structure into statistical analysis of ecological data, motivated by human microbiome research happening at the Fred Hutch.
 
 This work can be classified into two categories: within-sample diversity analysis and between-sample comparison.
 For within-sample diversity, the canonical formulation in a phylogenetic context is called \textit{phylogenetic diversity}, and is defined as the total amount of branch length (evolutionary distance) between all species in a sample.
@@ -190,18 +192,17 @@ We use both of these results in our pipeline to develop automated customized ref
 
 \section{Professional service}
 
-In additional to the usual academic professional service, I have started and continue to lead three initiatives to improve the research landscape in my field and at the Center.
-Since 2009 I have run \url{http://phyloseminar.org/}, an online lecture series which has had 43 talks on a wide variety of phylogenetic inference and applications.
-The seminar video recordings are on YouTube, and have been watched for almost 900 hours within the last year.
-This year I started a sister project, \url{http://phylobabble.org/}, an electronic forum to discuss best practice and new developments in phylogenetics.
-This year I also started \url{http://fredhutch.io/}, an initiative to facilitate education about and promote access to computational resources at the Fred Hutchinson Cancer Research Center.
-Our current primary focus is on building out a full-featured \href{http://usegalaxy.org/}{Galaxy} instance that will be useful for Center researchers with no programming experience to analyze their data, and to develop tools for investigators to interact with their data in real time that can be used from within Galaxy.
-
+In additional to the usual academic professional service, I have started and continue to lead three initiatives to improve the research landscape in my field and at the Fred Hutch.
+Since 2009 I have run \url{http://phyloseminar.org/}, an online lecture series which has had 50 talks on a wide variety of phylogenetic inference and applications.
+The seminar video recordings are on YouTube, and have been watched for over 950 hours within the last year.
+In 2014 year I started a sister project, \url{http://phylobabble.org/}, an electronic forum to discuss best practice and new developments in phylogenetics.
+In 2014 I also started \url{http://fredhutch.io/}, an initiative to facilitate education about and promote access to computational resources at the Fred Hutch.
+We have built out a full-featured \href{http://usegalaxy.org/}{Galaxy} instance used extensively by Fred Hutch researchers with no programming experience to analyze their data.
+We are also offering 7 week introductory bioinformatics courses to the Fred Hutch community and have made course materials \href{http://fredhutchio.github.io/intro-bioinformatics/}{available online}.
+These courses have been wildly popular, with a waiting list many times longer than course capacity.
 
 % \bibliography{research}
 % \bibliographystyle{unsrt}
 
 \end{document}
-
-
 
