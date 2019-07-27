@@ -44,7 +44,7 @@ Guided by collaborative work on hard problems in biomedicine, I develop sequence
 \vspace{0.15cm}
 
 \noindent
-In the last five years, we begun a transition from making inferences under classical probabilistic models using classical techniques, to our next phase: making inferences under models without easily computed likelihoods, as well as developing next-generation inferential tools such as variational Bayes phylogenetic inference.
+In the last five years, we begun a transition from making inferences under classical probabilistic models using classical techniques, to our next phase: making inferences under models without easily computed likelihoods, as well as developing next-generation inferential tools that move beyond the classical algorithmic toolbox.
 In the next five years, we will develop
 \begin{enumerate}
 \item variational Bayesian phylogenetic inference into an efficient, feature-rich, and complete inferential method
@@ -64,7 +64,7 @@ The objective of Bayesian phylogenetic inference is to infer a posterior distrib
 \vspace{0.3cm}
 \section{Next-generation methods for Bayesian phylogenetic inference}
 \vspace{-0.3cm}
-The goal of Bayesian phylogenetic inference is to infer a posterior distribution on evolutionary trees given some sequence data (Figure~\ref{FIGbayesPhylo}).
+The goal of Bayesian phylogenetic inference is to infer a posterior distribution on evolutionary trees given some sequence data (Fig.~\ref{FIGbayesPhylo}).
 Because sequence data and evolutionary signal is sparse for our domain of interest (pathogens and B cell receptors), and phylogenetic models are complex, there is considerable uncertainty in phylogenetic inferences.
 Bayesian methods directly report that uncertainty, and make it possible to pass the uncertainty on to another phase of the analysis.
 For example, we have found in collaborative work with the Overbaugh lab \cite{Simonich2019-nn} that B cell receptor phylogenetic trees show substantial uncertainty in their structure and ancestral sequences.
@@ -80,11 +80,11 @@ We want to make such probabilistic analysis much more efficient so that incorpor
 \end{marginfigure}%
 
 \newthought{Current Bayesian phylogenetic methods do not scale} to modern data sets.
-These methods are based on the classical Markov chain Monte-Carlo (MCMC) algorithm, which performs random tree modifications (Figure~\ref{FIGsprdef}) whereby modifications that result in better (higher likelihood) trees are favored over jumps to worse trees.
+These methods are based on the classical Markov chain Monte-Carlo (MCMC) algorithm, which performs random tree modifications (Fig.~\ref{FIGsprdef}) whereby modifications that result in better (higher likelihood) trees are favored over jumps to worse trees.
 However, most of these random modifications will result in a significantly worse tree, and thus are not accepted by the algorithm.
 Such low acceptance rates directly prevent MCMC from working on large data.
 
-In the past five years we have been obsessed with finding a scalable alternative to MCMC, applying
+In the past five years we have been obsessed with finding a scalable alternative to MCMC, developing phylogenetic methods based on
 sequential Monte Carlo \cite{Dinh2017-sh,Fourment2017-an,Claywell2018-zg},
 Hamiltonian Monte Carlo \cite{Dinh2017-oj},
 systematic search \cite{Whidden2018-db} with efficient marginal likelihood estimation \cite{Fourment2018-xx},
@@ -100,9 +100,9 @@ Of these, we will only continue to pursue variational inference.
   \label{FIGvariationalGradient}
 \end{marginfigure}%
 
-Variational inference is an alternative approach to posterior inference that fits a so-called variational approximation to a posterior distribution (Figure~\ref{FIGvariationalGradient}).
+Variational inference is an alternative approach to posterior inference that fits a so-called variational approximation to a posterior distribution (Fig.~\ref{FIGvariationalGradient}).
 Accurate variational inference methods depend on a variational approximation that can closely match the true posterior distribution.
-We perform variational inference on the set of phylogenetic trees, an intricate mixture of discrete and continuous aspects for which it is not at all obvious how to parameterize a distribution using real-valued parameters.
+It is not immediately obvious how to define a good variational approximation on the set of phylogenetic trees, an intricate mixture of discrete and continuous components.
 
 \begin{marginfigure}[0.7in]%
   \includegraphics[width=1.95in]{csd}
@@ -113,9 +113,9 @@ We perform variational inference on the set of phylogenetic trees, an intricate 
   \label{FIGcsd}
 \end{marginfigure}%
 
-Our variational inference method is in terms of conditional probabilities of splitting events on trees (Figure~\ref{FIGcsd}).
+Our variational inference method is in terms of conditional probabilities of splitting events on trees (Fig.~\ref{FIGcsd}).
 We have shown that such a parameterization is sufficiently rich to capture the structure of real phylogenetic posterior distributions \cite{Zhang2018-mm}.
-In fact, we showed that simply fitting such a distribution to an MCMC sample of phylogenetic trees results in a better approximation to the posterior than simply using the MCMC samples, showing that the ``information sharing'' inherent in our parameterization smooths out the stochasticity inherent in an MCMC sample.
+In fact, we showed that fitting such a distribution to an MCMC sample of phylogenetic trees results in a better approximation to the posterior than simply using the MCMC samples, showing that the ``information sharing'' inherent in our parameterization smooths out the stochasticity inherent in an MCMC sample.
 
 \begin{marginfigure}[0.7in]%
   \includegraphics[width=1.95in]{vbpi-performance}
@@ -126,12 +126,11 @@ In fact, we showed that simply fitting such a distribution to an MCMC sample of 
 \end{marginfigure}%
 
 We then combined this variational parameterization on phylogenetic tree topologies with a parameterization on tree branch lengths to obtain a complete parameterization on phylogenetic trees, which enables direct variational inference from data \cite{Zhang2018-lw}.
-We showed that our variational methods quickly approximate the posterior (Figure~\ref{FIGvbpiPerformance}).
+We showed that our variational methods quickly approximate the posterior (Fig.~\ref{FIGvbpiPerformance}).
 
 \paragraph{The future}
 We are moving quickly to ensure variational Bayesian inference will achieve its promise.
-This includes developing \href{https://github.com/matsengrp/libsbn/}{libsbn}, a Python-interface C++ library to provide efficient implementation of variational Bayes phylogenetic inference and enable researchers to develop phylogenetic models using Python-based modeling platforms such as \href{https://www.tensorflow.org/}{Tensorflow} and \href{https://pytorch.org/}{PyTorch}.
-This package will allow us to specify and do inference on complex phylogenetic models.
+This includes developing \href{https://github.com/matsengrp/libsbn/}{libsbn}, a Python-interface C++ library to provide efficient implementation of variational Bayes phylogenetic inference and enable researchers to develop complex phylogenetic models using Python-based modeling platforms such as \href{https://www.tensorflow.org/}{Tensorflow} and \href{https://pytorch.org/}{PyTorch}.
 We are also developing methods to allow divide-and-conquer Bayesian phylogenetic inference, which we believe is an essential component of scaling phylogenetic inference to large data sets.
 Farther down the road, we also believe that variational methods can enable whole-sequence-based phylogenetic inference methods, which will allow us to avoid the ubiquitous independence-across-sites assumption.
 
@@ -145,7 +144,7 @@ Farther down the road, we also believe that variational methods can enable whole
   \includegraphics[width=1.25in]{bcr-tcr}
 \end{centering}
   \caption{\
-    B cell receptors (BCRs) \\ and T cell receptors (TCRs).
+    B cell receptors (BCRs) and T cell receptors (TCRs).
     }
   \label{FIGbcrTcr}
 \end{marginfigure}%
@@ -155,12 +154,7 @@ B cell receptors (BCRs), called antibodies in their secreted form, bind directly
 T cell receptors (TCRs) do not have a secreted form, and bind cleaved antigen-derived peptides that are presented by Major Histocompatibility Complex (MHC).
 One can apply high-throughput sequencing to the DNA encoding these BCRs and/or TCRs to obtain millions of unique adaptive immune receptor sequences from a single blood draw, which is called an immune repertoire.
 
-During our first five years of working on immune repertoires, we used existing statistical frameworks to learn about the generative process of antibodies and T cell receptors \cite{McCoy2015-qi, Cobey2015-dn, Ralph2016-kr, Ralph2016-yl, Ralph2017-ih, DeWitt2018-el, Dhar2018-ne, Zhang2018-gn, Davidsen2018-gn, DeWitt2018-ar, Simonich2019-nn, Feng2019-sj, Dhar2019-qg}.
-However, as we described in an invited review \cite{Olson2018-lw}, some key aspects of immunology are simply out of reach using classical methods.
-Thus we are now using non-classical methods:
-first, we use deep neural networks for receptor analysis and function prediction, and second, we develop and fit mechanistic probabilistic models for the intricate process of somatic hypermutation.
-
-\begin{marginfigure}[-0.4in]%
+\begin{marginfigure}[0.2in]%
 \begin{centering}
     \includegraphics[width=1.9in]{figures/vae.pdf}
 \end{centering}
@@ -169,16 +163,16 @@ first, we use deep neural networks for receptor analysis and function prediction
     }
   \label{FIGvae}
 \end{marginfigure}%
+During our first five years of working on immune repertoires, we used existing statistical frameworks to learn about the generative process of antibodies and T cell receptors \cite{McCoy2015-qi, Ralph2016-kr, Ralph2016-yl, Ralph2017-ih, DeWitt2018-el, Dhar2018-ne, Zhang2018-gn, Davidsen2018-gn, DeWitt2018-ar, Simonich2019-nn, Feng2019-sj, Dhar2019-qg}.
+However, as we described in an invited review \cite{Olson2018-lw}, some key aspects of immunology are simply out of reach using classical methods.
+For example, although simple probabilistic models such as hidden Markov models (HMMs) work very well to characterize the first rearrangement step, tolerance checkpoints and expansion involve functional binding properties that cannot be represented by such simple probabilistic models.
+% To do better, one needs a more flexible model and lots of data.
+We are now using non-classical methods:
+first, we use deep neural networks for receptor analysis, and second, we develop and fit mechanistic probabilistic models for the intricate process of somatic hypermutation.
 
 % Although simple probabilistic models such as hidden Markov models (HMMs) work very well to characterize the first rearrangement step, tolerance checkpoints and expansion involve functional binding properties that cannot be represented by such simple probabilistic models.
 % Indeed, binding is a property of the entire receptor, introducing long-range dependencies that cannot be broken down into simple conditional probabilities.
 % To do better, one needs a more flexible model and lots of data.
-
-
-\subsection*{Deep generative models}
-Our group is advancing beyond the state of the art with generative models built from deep neural networks.
-These models are similar to classical models, such as HMMs, in that they can be fit to an observed distribution of sequences and can generate additional sequences.
-However, neural networks are much more flexible, and thus can represent more complex distributions.
 
 \begin{marginfigure}[0.2in]%
 \begin{centering}
@@ -191,16 +185,31 @@ However, neural networks are much more flexible, and thus can represent more com
 \end{marginfigure}%
 
 
+\subsection*{Deep generative models}
+Our group is advancing beyond the state of the art with generative models built from deep neural networks.
+These models are similar to classical models, such as HMMs, in that they can be fit to an observed distribution of sequences and can generate additional sequences.
+However, neural networks are much more flexible, and thus can represent more complex distributions.
+
+
 We are successfully using variational autoencoders (VAEs) \cite{Kingma2014-mo} to learn complex sequence distributions.
 VAEs use an encoder network, a decoder network, and a distribution on an embedding space, to give a generative model (Fig.~\ref{FIGvae}).
 We train the VAE using collections of sequence data and then can use it to assess probability of given sequences.
+For example, we perform accurate frequency estimation on the data set of \cite{Emerson2017-co} compared to an existing model (Fig.~\ref{FIGfrequency}).
 
 
-
+\begin{marginfigure}[0.2in]%
+\begin{centering}
+    \includegraphics[width=\textwidth]{spatial-co-localization}
+\end{centering}
+  \caption{\
+    Our VAE provides more accurate frequency estimates compared to a state-of-the-art model.
+    }
+  \label{FIGshm}
+\end{marginfigure}%
 
 \newpage
 \bibliography{main}
-\bibliographystyle{apsrev4-1}
+\bibliographystyle{abbrvunsrtnat}
 
 
 \end{document}
