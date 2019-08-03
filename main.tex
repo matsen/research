@@ -36,15 +36,11 @@
 
 \begin{abstract}
 \noindent
-As large biological data sets become easily available, methodological advances in computational biology can greatly improve our understanding of hidden processes.
-I am committed to building rigorous computational methods to solve important problems in biology and to making those tools accessible to biologists.
-Guided by collaborative work on hard problems in biomedicine, I develop sequence analysis methods that integrate relevant biological details, that deliver meaningful uncertainty estimates, and that scale to large data sets.
-
-
-\vspace{0.15cm}
-
-\noindent
-In the last five years, we begun a transition from making inferences under classical probabilistic models using classical techniques, to our next phase: making inferences under models without easily computed likelihoods, as well as developing next-generation inferential tools that move beyond the classical algorithmic toolbox.
+% As large biological data sets become easily available, methodological advances in computational biology can greatly improve our understanding of hidden processes.
+% I am committed to building rigorous computational methods to solve important problems in biology and to making those tools accessible to biologists.
+% Guided by collaborative work on hard problems in biomedicine,
+I develop sequence analysis methods that integrate relevant biological details, deliver meaningful uncertainty estimates, and scale to large data sets.
+In the past five years we started a transition from performing classical inference under classical probabilistic models to our next phase: making inferences under models without easily computed likelihoods, as well as developing next-generation inferential tools that move beyond the classical algorithmic toolbox.
 In the next five years, we will develop
 \begin{enumerate}
 \item variational Bayesian phylogenetic inference into an efficient, feature-rich, and mature inferential method
@@ -52,7 +48,7 @@ In the next five years, we will develop
 \end{enumerate}
 \end{abstract}
 
-\begin{marginfigure}[0.8in]%
+\begin{marginfigure}[1.8in]%
   \includegraphics[width=1.95in]{bayesian_phylo}
   \caption{\
 The objective of Bayesian phylogenetic inference is to infer a posterior distribution on phylogenetic trees, giving the probability that each trees is correct given sequence data.
@@ -65,12 +61,17 @@ The objective of Bayesian phylogenetic inference is to infer a posterior distrib
 \section{Next-generation methods for Bayesian phylogenetic inference}
 \vspace{-0.3cm}
 The goal of Bayesian phylogenetic inference is to infer a posterior distribution on evolutionary trees given some sequence data (Fig.~\ref{FIGbayesPhylo}).
-Because evolutionary signal is sparse for our domain of interest (pathogens and B cell receptors), and phylogenetic models are parameter-rich, there is considerable uncertainty in phylogenetic inferences.
-Bayesian methods directly report that uncertainty, and make it possible to pass the uncertainty on to another phase of the analysis.
-For example, we have found in collaborative work with the Overbaugh lab \cite{Simonich2019-nn} that B cell receptor phylogenetic trees show substantial uncertainty in their structure and ancestral sequences.
+Because evolutionary signal is sparse for our domain of interest (pathogens and B cell receptors), and phylogenetic models are parameter-rich, we observe considerable uncertainty in inferences.
+Bayesian methods directly report that uncertainty, and make it possible to pass the uncertainty on to another phase of analysis.
+% For example, we have found in collaborative work with the Overbaugh lab \cite{Simonich2019-nn} that B cell receptor phylogenetic trees show substantial uncertainty in their structure and ancestral sequences.
 We want to make such probabilistic analysis much more efficient so that incorporating uncertainty becomes in integral part of evolutionary sequence analysis.
 
-\begin{marginfigure}[-0.in]%
+\newthought{Current Bayesian phylogenetic methods do not scale} to modern data sets.
+These methods are based on the classical Markov chain Monte-Carlo (MCMC) algorithm, which performs random tree modifications (Fig.~\ref{FIGsprdef}) whereby modifications that result in better (higher likelihood) trees are favored over jumps to worse trees.
+However, most of these random modifications will result in a significantly worse tree, and thus are not accepted by the algorithm.
+Such low acceptance rates make MCMC inapplicable to large data sets.
+
+\begin{marginfigure}[0.in]%
   \includegraphics[width=1.95in]{spr-definition}
   \caption{\
     A phylogenetic tree and the result of applying a subtree-prune-regraft (SPR) modification to it.
@@ -79,17 +80,17 @@ We want to make such probabilistic analysis much more efficient so that incorpor
   \label{FIGsprdef}
 \end{marginfigure}%
 
-\newthought{Current Bayesian phylogenetic methods do not scale} to modern data sets.
-These methods are based on the classical Markov chain Monte-Carlo (MCMC) algorithm, which performs random tree modifications (Fig.~\ref{FIGsprdef}) whereby modifications that result in better (higher likelihood) trees are favored over jumps to worse trees.
-However, most of these random modifications will result in a significantly worse tree, and thus are not accepted by the algorithm.
-Such low acceptance rates directly prevent MCMC from working on large data.
-
 In the past five years we have been obsessed with finding a scalable alternative to MCMC, developing phylogenetic methods based on
 sequential Monte Carlo \cite{Dinh2017-sh,Fourment2017-an,Claywell2018-zg},
 Hamiltonian Monte Carlo \cite{Dinh2017-oj},
 systematic search \cite{Whidden2018-db} with efficient marginal likelihood estimation \cite{Fourment2018-xx},
 and variational inference \cite{Zhang2018-lw,Zhang2018-mm}.
 Of these, we will only continue to pursue variational inference.
+
+Variational inference fits a so-called variational approximation to a posterior distribution (Fig.~\ref{FIGvariationalGradient}) rather than sampling from it.
+Accurate variational inference methods depend on a variational approximation that can closely match the true posterior distribution.
+% It is not immediately obvious how to define a good variational approximation on the set of phylogenetic trees.
+%, an intricate mixture of discrete and continuous components.
 
 \begin{marginfigure}[0.in]%
   \includegraphics[width=1.95in]{variational-gradient}
@@ -100,10 +101,9 @@ Of these, we will only continue to pursue variational inference.
   \label{FIGvariationalGradient}
 \end{marginfigure}%
 
-Variational inference fits a so-called variational approximation to a posterior distribution (Fig.~\ref{FIGvariationalGradient}) rather than sampling from the posterior distribution.
-Accurate variational inference methods depend on a variational approximation that can closely match the true posterior distribution.
-It is not immediately obvious how to define a good variational approximation on the set of phylogenetic trees.
-%, an intricate mixture of discrete and continuous components.
+Our variational inference method is in terms of conditional probabilities of splitting events on trees (Fig.~\ref{FIGcsd}).
+We have shown that such a parameterization is sufficiently rich to capture the structure of real phylogenetic posterior distributions \cite{Zhang2018-mm}.
+In fact, we showed that fitting such a distribution to an MCMC sample of phylogenetic trees results in a better approximation to the posterior than simply using the MCMC samples, showing that the ``information sharing'' inherent in our parameterization smooths out MCMC stochasticity.
 
 \begin{marginfigure}[0.7in]%
   \includegraphics[width=1.95in]{csd}
@@ -114,24 +114,21 @@ It is not immediately obvious how to define a good variational approximation on 
   \label{FIGcsd}
 \end{marginfigure}%
 
-Our variational inference method is in terms of conditional probabilities of splitting events on trees (Fig.~\ref{FIGcsd}).
-We have shown that such a parameterization is sufficiently rich to capture the structure of real phylogenetic posterior distributions \cite{Zhang2018-mm}.
-In fact, we showed that fitting such a distribution to an MCMC sample of phylogenetic trees results in a better approximation to the posterior than simply using the MCMC samples, showing that the ``information sharing'' inherent in our parameterization smooths out MCMC stochasticity.
+We then developed full variational inference by combining this variational parameterization on phylogenetic tree topologies with a parameterization on tree branch lengths \cite{Zhang2018-lw}.
+We showed that our variational methods quickly approximate the posterior (Fig.~\ref{FIGvbpiPerformance}).
 
 \begin{marginfigure}[0.7in]%
   \includegraphics[width=1.95in]{vbpi-performance}
   \caption{\
     The performance of direct variational Bayes phylogenetic inference on benchmark data set DS1 (lower is better).
+    Figure simplified from \cite{Zhang2018-lw}.
     }
   \label{FIGvbpiPerformance}
 \end{marginfigure}%
 
-We then combined this variational parameterization on phylogenetic tree topologies with a parameterization on tree branch lengths to obtain a complete parameterization on phylogenetic trees, which enabled direct variational inference from data \cite{Zhang2018-lw}.
-We showed that our variational methods quickly approximate the posterior (Fig.~\ref{FIGvbpiPerformance}).
-
 \paragraph{Future plans}
-We are moving quickly to ensure variational Bayesian inference will achieve its promise.
-This includes developing \href{https://github.com/matsengrp/libsbn/}{libsbn}, a Python-interface C++ library to provide easy access to efficient implementations of the algorithmic core of variational Bayes phylogenetic inference and thus enable researchers to develop complex phylogenetic models using Python-based modeling platforms such as \href{https://www.tensorflow.org/}{Tensorflow} and \href{https://pytorch.org/}{PyTorch}.
+We are moving quickly to build variational Bayesian inference into a complete inferential framework.
+This includes developing \href{https://github.com/matsengrp/libsbn/}{libsbn}, a Python-interface C++ library to provide efficient implementations of the algorithmic core of variational Bayes phylogenetic inference and thus enable researchers to develop complex phylogenetic models using Python-based modeling platforms such as \href{https://www.tensorflow.org/}{Tensorflow} and \href{https://pytorch.org/}{PyTorch}.
 We are also developing methods to allow divide-and-conquer Bayesian phylogenetic inference, which we believe is an essential component of scaling phylogenetic inference to large data sets.
 Farther down the road, we also believe that variational methods can enable whole-sequence-based phylogenetic inference methods, which will allow us to avoid the ubiquitous and problematic independence-across-sites assumption.
 
@@ -140,7 +137,13 @@ Farther down the road, we also believe that variational methods can enable whole
 \section{Deep learning for immune repertoires}
 \vspace{-0.3cm}
 
-\begin{marginfigure}[0.5in]%
+The adaptive immune system is composed of B and T cells, each of which has a highly adaptable and variable receptor to bind a very diverse and ever-changing landscape of antigens.
+B cell receptors (BCRs), called antibodies in their secreted form, bind directly to antigens (Fig.~\ref{FIGbcrTcr}).
+T cell receptors (TCRs) do not have a secreted form, and bind cleaved antigen-derived peptides that are presented by Major Histocompatibility Complex (MHC).
+BCRs and TCRs are incredibly diverse, being generated by a within-individual random process that begins with V(D)J recombination.
+One can apply high-throughput sequencing to the DNA encoding these BCRs and/or TCRs to obtain millions of unique adaptive immune receptor sequences from a single blood draw, giving what is called an immune repertoire.
+
+\begin{marginfigure}[0.0in]%
 \begin{centering}
   \includegraphics[width=1.5in]{bcr-tcr}
 \end{centering}
@@ -150,24 +153,19 @@ Farther down the road, we also believe that variational methods can enable whole
   \label{FIGbcrTcr}
 \end{marginfigure}%
 
-The adaptive immune system is composed of B and T cells, each of which has a highly adaptable and variable receptor to bind a very diverse and ever-changing landscape of antigens.
-B cell receptors (BCRs), called antibodies in their secreted form, bind directly to antigens (Fig.~\ref{FIGbcrTcr}).
-T cell receptors (TCRs) do not have a secreted form, and bind cleaved antigen-derived peptides that are presented by Major Histocompatibility Complex (MHC).
-BCRs and TCRs are incredibly diverse within each individual, being generated by a random process that begins with V(D)J recombination.
-One can apply high-throughput sequencing to the DNA encoding these BCRs and/or TCRs to obtain millions of unique adaptive immune receptor sequences from a single blood draw, giving what is called an immune repertoire.
-
 During our first five years of working on immune repertoires, we used existing statistical frameworks to learn about the generative process of antibodies and T cell receptors \cite{McCoy2015-qi, Ralph2016-kr, Ralph2016-yl, Ralph2017-ih, DeWitt2018-el, Dhar2018-ne, Zhang2018-gn, Davidsen2018-gn, DeWitt2018-ar, Simonich2019-nn, Feng2019-sj, Dhar2019-qg}.
 However, as we described in an invited review \cite{Olson2018-lw}, some key aspects of immunology are simply out of reach using classical methods.
 For example, although simple probabilistic models such as hidden Markov models (HMMs) work very well to characterize the first rearrangement step, tolerance checkpoints and expansion involve functional binding properties that cannot be represented by such simple probabilistic models.
 We are thus now using non-classical methods:
 first, we use deep neural networks for receptor analysis, and second, we develop and fit mechanistic probabilistic models for the intricate process of somatic hypermutation.
 
-\begin{marginfigure}[-1.5in]%
+\begin{marginfigure}[0.1in]%
 \begin{centering}
     \includegraphics[width=1.9in]{figures/vae.pdf}
 \end{centering}
   \caption{\
-    A variational autoencoder (VAE).
+    Our variational autoencoder (VAE) embeds TCR protein sequences $\mathbf{x}$ into an $n$-dimensional latent space, using a probabilistic encoder $q_\phi$ and decoder $p_\theta$ that are both parametrized by deep neural networks.
+The VAE objective is to encode and decode objects with high fidelity while ensuring the encoder distribution is close to a prior $p_\theta(\mathbf{z})$ on that latent space.
     }
   \label{FIGvae}
 \end{marginfigure}%
@@ -186,33 +184,23 @@ VAEs use an encoder network, a decoder network, and a distribution on an embeddi
 We train the VAE using collections of sequence data and then can use it to assess probability of given sequences.
 For example, we perform accurate frequency estimation on the data set of \cite{Emerson2017-co} compared to an existing model (Fig.~\ref{FIGfrequency}).
 
-\begin{marginfigure}[-0.8in]%
+\begin{marginfigure}[0.2in]%
 \begin{centering}
     \includegraphics[width=\textwidth]{log_normed_Ppost_vs_log_normed_Pvae.png}
 \end{centering}
   \caption{\
-    Our VAE provides more accurate frequency estimates compared to a state-of-the-art model.
+    Our VAE provides more accurate frequency estimates compared to a state-of-the-art recombination model with a simple selection model.
     }
   \label{FIGfrequency}
 \end{marginfigure}%
 
 \subsection*{Somatic hypermutation}
 
-Somatic hypermutation (SHM) is the driver of affinity maturation, which is the within-host process of mutation and selection by which antibodies gain high affinity.
+Somatic hypermutation (SHM) is the driver of affinity maturation: the within-host process by which antibodies gain high affinity.
 Thus to understand prospects for eliciting specific antibodies through vaccination we must estimate mutation probability accurately.
 % Accurate estimation of SHM mutation probability is important for understanding which antibodies are accessible from a certain na\"ive progenitor cell.
 % For example, it has been shown that specific low-probability mutations are important for broadly-neutralizing HIV antibody maturation \cite{Bonsignori2017-nj,Hwang2017-tt,Wiehe2018-of}.
 % Thus to understand prospects for eliciting such antibodies through vaccination, and how to design vaccine inserts rationally \cite{Jardine2013-yt}, we must estimate mutation probability accurately.
-
-\begin{marginfigure}[0.7in]%
-\begin{centering}
-    \includegraphics[width=\textwidth]{spatial-co-localization}
-\end{centering}
-  \caption{\
-   Current models such as RS5NF \cite{Cui2016-wz} do not capture the clustering of mutations seen in real data.
-    }
-  \label{FIGshm}
-\end{marginfigure}%
 
 The current statistical approach works to understand the influence of local sequence context, namely the surrounding DNA bases, on mutation probability \cite{Rogozin1992-xv,Yaari2013-dg,Cui2016-wz}.
 We have ourselves extended this work with a penalized  proportional hazards model \cite{Feng2019-sj} that takes the influence of earlier mutations on later mutations, and only allows parameters into the model when they improve model fit.
@@ -220,23 +208,50 @@ However, the accuracy of these local models is inherently limited by the width o
 
 We are now moving beyond these limitations by directly fitting mechanistic models of SHM, which are parameterized in terms that have direct biological significance, such as transcription bubble size and probabilities of various repair pathways.
 These complex models do not admit a likelihood so cannot be fit with classical means.
-Therefore we are developing neural network methods to perform parameter inference, along the lines of \cite{Chan2018-qq}.
+Therefore we are developing neural network methods to perform parameter inference, along the lines of \cite{Jiang2017-xs,Chan2018-qq}.
+
+
+\begin{marginfigure}[0.in]%
+\begin{centering}
+    \includegraphics[width=\textwidth]{spatial-co-localization}
+\end{centering}
+  \caption{\
+   Current models such as RS5NF \cite{Cui2016-wz} do not capture the clustering of mutations seen in real data \cite{Yeap2015-nl} as measured by the ``spatial co-localization'' \cite{Marcou2018-sm} quantifying non-independence of mutations separated by a distance $d$.
+    }
+  \label{FIGshm}
+\end{marginfigure}%
 
 \paragraph{Future plans}
 Our immediate future plans are to continue developing generative models of immune repertoires, including a na\"ive B cell probability estimator that can be used to rank prospective antibodies in terms of their elicitation potential.
 We will also investigate the degree to which such models can aid in T cell binding prediction.
-For the SHM work, we now have funding to move our collaboration forward with Hedda Wardemman's lab to investigate SHM in a model system.
+For the SHM work, we now have funding to investigate SHM in a model laboratory system with Hedda Wardemman's group.
+
 
 \section{Collaborations and broader impacts}
 
 Although I have focused on our future directions that are more methodologically ambitious, we will continue to develop many more classical methods that are of more immediate utility.
 For example, we have just finished a Bayesian phylogenetic hidden Markov model for B cell receptor sequences \cite{Dhar2019-qg}, which provides B cell naive sequence estimates with corresponding estimates of certainty for the first time.
-These sequences are being built and tested by the Overbaugh lab for their research.
+These sequences are being built into antibodies and tested by the Overbaugh lab for their research.
 
-I will also continue to move forward our community-building and educational efforts.
+I will also continue to move forward my community-building and educational efforts.
 At Fred Hutch, I will continue to advise \href{http://fredhutch.io/}{fredhutch.io} educational initiative that I started in 2014.
 I will also continue to organize and host \href{http://phyloseminar.org/}{phyloseminar.org}, an online seminar series on phylogenetics which has had 89 talks and over 56,800 views, as well as the \href{http://b-t.cr/}{B-T.CR} forum on BCR and TCR sequence analysis.
 
+
+% \section{A note on my paper selections}
+%
+% I have selected three papers that I feel best represent our future directions.
+% The two Matsen/Zhang papers were conference papers at NeurIPS and ICLR, two of the top machine learning conferences.
+% The publication model in machine learning is based on such conferences rather than journals.
+% Although I believe that we are the only ones at Fred Hutch getting papers in such conferences, I think
+
+
+\newpage
+\bibliography{main}
+\bibliographystyle{abbrvunsrtnat}
+
+
+\newpage
 
 \section{Diversity statement}
 
@@ -246,18 +261,15 @@ However, my performance in this realm has been mixed.
 On one hand I have done a good job of bringing a diverse group of interns for summer projects in my group.
 We have had 8 interns since 2014, 5 of which were women, and 6 of which were not Caucasian.
 All of these students had a significant experience writing scientific software, and many are still in touch and doing great things.
+I also view my work on \href{http://phyloseminar.org/}{phyloseminar.org} as having an inclusiveness component, as these seminars reach a truly global audience.
 
 However, my track record of recruiting women and under-represented minorities into the group has been poor.
 I have only had one woman PhD student and one woman postdoc.
-Both of these individuals were outstanding and have been successful.
+Both of these individuals have been very successful.
 
 I have discussed my shortcomings in recruiting with Julie Overbaugh and have developed a new plan of finding candidates well before their graduation and cultivating their interest in our research program.
 I would welcome any other advice or assistance.
 
-
-\newpage
-\bibliography{main}
-\bibliographystyle{abbrvunsrtnat}
 
 
 \end{document}
