@@ -27,7 +27,7 @@
 \newcommand{\minisec}[1]{\vspace{3pt} \noindent \emph{#1}\ }
 
 \title{Research statement}
-\author{\href{http://matsen.fredhutch.org/}{Frederick A. Matsen}, Fred Hutchinson Cancer Research Center}
+\author{\href{http://matsen.fredhutch.org/}{Frederick A Matsen IV}\\Fred Hutchinson Cancer Research Center}
 
 
 \begin{document}
@@ -36,11 +36,11 @@
 
 \begin{abstract}
 \noindent
-% As large biological data sets become easily available, methodological advances in computational biology can greatly improve our understanding of hidden processes.
-% I am committed to building rigorous computational methods to solve important problems in biology and to making those tools accessible to biologists.
-% Guided by collaborative work on hard problems in biomedicine,
-I develop sequence analysis methods that integrate relevant biological details, deliver meaningful uncertainty estimates, and scale to large data sets.
-In the past five years we started a transition from performing classical inference under classical probabilistic models to our next phase: making inferences under models without easily computed likelihoods, as well as developing next-generation inferential tools that move beyond the classical algorithmic toolbox.
+As large biological data sets become easily available, methodological advances in computational biology can greatly improve our understanding of hidden processes.
+I am committed to building rigorous computational methods to solve important problems in biology and to making those tools accessible to biologists.
+Guided by collaborative work on hard problems in biomedicine, I develop sequence analysis methods that integrate relevant biological details, deliver meaningful uncertainty estimates, and scale to large data sets.
+
+In the past five years my group initiated a transition from performing classical inference under classical probabilistic models to our next phase: making inferences under models without easily computed likelihoods, as well as developing next-generation inferential tools that move beyond the classical algorithmic toolbox.
 In the next five years, we will develop
 \begin{enumerate}
 \item variational Bayesian phylogenetic inference into an efficient, feature-rich, and mature inferential method
@@ -51,7 +51,7 @@ In the next five years, we will develop
 \begin{marginfigure}[1.8in]%
   \includegraphics[width=1.95in]{bayesian_phylo}
   \caption{\
-The objective of Bayesian phylogenetic inference is to infer a posterior distribution on phylogenetic trees, giving the probability that each trees is correct given sequence data.
+The objective of Bayesian phylogenetic inference is to infer a posterior distribution on phylogenetic trees, giving the probability that each tree is correct given sequence data.
     }
   \label{FIGbayesPhylo}
 \end{marginfigure}%
@@ -64,14 +64,14 @@ The goal of Bayesian phylogenetic inference is to infer a posterior distribution
 Because evolutionary signal is sparse for our domain of interest (pathogens and B cell receptors), and phylogenetic models are parameter-rich, we observe considerable uncertainty in inferences.
 Bayesian methods directly report that uncertainty, and make it possible to pass the uncertainty on to another phase of analysis.
 % For example, we have found in collaborative work with the Overbaugh lab \cite{Simonich2019-nn} that B cell receptor phylogenetic trees show substantial uncertainty in their structure and ancestral sequences.
-We want to make such probabilistic analysis much more efficient so that incorporating uncertainty becomes in integral part of evolutionary sequence analysis.
+We want to make such probabilistic analysis much more efficient so that researchers can be more confident in their inferences.
 
 \newthought{Current Bayesian phylogenetic methods do not scale} to modern data sets.
 These methods are based on the classical Markov chain Monte-Carlo (MCMC) algorithm, which performs random tree modifications (Fig.~\ref{FIGsprdef}) whereby modifications that result in better (higher likelihood) trees are favored over jumps to worse trees.
 However, most of these random modifications will result in a significantly worse tree, and thus are not accepted by the algorithm.
 Such low acceptance rates make MCMC inapplicable to large data sets.
 
-\begin{marginfigure}[0.in]%
+\begin{marginfigure}[-1.9in]%
   \includegraphics[width=1.95in]{spr-definition}
   \caption{\
     A phylogenetic tree and the result of applying a subtree-prune-regraft (SPR) modification to it.
@@ -85,7 +85,7 @@ sequential Monte Carlo \cite{Dinh2017-sh,Fourment2017-an,Claywell2018-zg},
 Hamiltonian Monte Carlo \cite{Dinh2017-oj},
 systematic search \cite{Whidden2018-db} with efficient marginal likelihood estimation \cite{Fourment2018-xx},
 and variational inference \cite{Zhang2018-lw,Zhang2018-mm}.
-Of these, we will only continue to pursue variational inference.
+Of these, variational inference is by far the most promising.
 
 Variational inference fits a so-called variational approximation to a posterior distribution (Fig.~\ref{FIGvariationalGradient}) rather than sampling from it.
 Accurate variational inference methods depend on a variational approximation that can closely match the true posterior distribution.
@@ -128,7 +128,7 @@ We showed that our variational methods quickly approximate the posterior (Fig.~\
 
 \paragraph{Future plans}
 We are moving quickly to build variational Bayesian inference into a complete inferential framework.
-This includes developing \href{https://github.com/matsengrp/libsbn/}{libsbn}, a Python-interface C++ library to provide efficient implementations of the algorithmic core of variational Bayes phylogenetic inference and thus enable researchers to develop complex phylogenetic models using Python-based modeling platforms such as \href{https://www.tensorflow.org/}{Tensorflow} and \href{https://pytorch.org/}{PyTorch}.
+This includes developing \href{https://github.com/phylovi/libsbn/}{libsbn}, a Python-interface C++ library to provide efficient implementations of the algorithmic core of variational Bayes phylogenetic inference and thus enable researchers to develop complex phylogenetic models using Python-based modeling platforms such as \href{https://www.tensorflow.org/}{Tensorflow} and \href{https://pytorch.org/}{PyTorch}.
 We are also developing methods to allow divide-and-conquer Bayesian phylogenetic inference, which we believe is an essential component of scaling phylogenetic inference to large data sets.
 Farther down the road, we also believe that variational methods can enable whole-sequence-based phylogenetic inference methods, which will allow us to avoid the ubiquitous and problematic independence-across-sites assumption.
 
@@ -182,7 +182,7 @@ Our group is advancing beyond the state of the art by developing generative mode
 Our first step is to use variational autoencoders (VAEs) \cite{Kingma2014-mo} to learn complex sequence distributions.
 VAEs use an encoder network, a decoder network, and a distribution on an embedding space, to give a generative model (Fig.~\ref{FIGvae}).
 We train the VAE using collections of sequence data and then can use it to assess probability of given sequences.
-For example, we perform accurate frequency estimation on the data set of \cite{Emerson2017-co} compared to an existing model (Fig.~\ref{FIGfrequency}).
+For example, we perform more accurate frequency estimation on the data set of \cite{Emerson2017-co} compared to an existing model (Fig.~\ref{FIGfrequency}).
 
 \begin{marginfigure}[0.2in]%
 \begin{centering}
